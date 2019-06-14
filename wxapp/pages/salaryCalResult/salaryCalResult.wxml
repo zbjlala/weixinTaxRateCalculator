@@ -1,0 +1,172 @@
+
+<view class="salaryCalResult" style="{{!isShowDetail?(curPageTaxData.actualAnnualIncomeDiff==0?'height:1660rpx':'height:2080rpx'):(curPageTaxData.actualAnnualIncomeDiff==0?'height:100vh':'height:1320rpx')}}">
+  <image class="bg1" src="../../images/bg1.png"></image>
+<view class="wrapContent">
+      <view class="content">
+    <view class="head">
+      <view class="topbar">
+        <image class="lft" src="../../images/salaryCalResult/head-l.png"></image>
+        <image class="mid" src="../../images/salaryCalResult/head-m.png"></image>
+        <image class="rgt" src="../../images/salaryCalResult/head-r.png"></image>
+      </view>
+      <view class="midbar">
+        <image class="lft" src="../../images/salaryCalResult/c-r.png"></image>
+        <view class="mid"></view>
+        <image class="rgt" src="../../images/salaryCalResult/c-l.png"></image>
+      </view>
+
+      <view class="cnt">
+        <view class="title">到手的钱全年增加</view>
+        <view class="total-year zero-bg">
+          <image class="cheerup" hidden="{{curPageTaxData.actualAnnualIncomeDiff != 0}}"  src="../../images/salaryCalResult/cheerup.png"></image>
+          <text class="num">{{curPageTaxData.actualAnnualIncomeDiff}}</text>元
+        </view>
+
+        <view class="month-save" hidden="{{curPageTaxData.actualAnnualIncomeDiff == 0}}" >
+          <view class="label">每月少缴个税</view>
+          <view class="amount">
+            <text class="amountVal">{{curPageTaxData.taxDiff}}</text>元
+          </view>
+        </view>
+        <view class="month-save-zero" hidden="{{curPageTaxData.actualAnnualIncomeDiff != 0}}" >每天努力一点点，涨薪不是梦！</view>
+        <view class="detail-list" hidden="{{isShowDetail}}">
+        <!-- <view class="detail-list" > -->
+          <view class="hr bb">
+            <view class="c c1">单位：元</view>
+            <view class="c cr c2">税改前</view>
+            <view class="c cr c3">税改后</view>
+          </view>
+          <view class="hr">
+            <view class="c c1">起征点</view>
+            <view class="c cr c2">3500</view>
+            <view class="c cr c3">5000</view>
+          </view>
+          <view class="dr">
+            <view class="c c1">收入</view>
+            <view class="c cr c2">{{curPageTaxData.income}}</view>
+            <view class="c cr c3">{{curPageTaxData.income}}</view>
+          </view>
+          <view class="dr">
+            <view class="c c1">专项扣除
+              <image bindtap='openDialog' class="shuoMingIcon" src="../../images/shuoMingIcon.png"></image>
+            </view>
+            <view class="c cr c2">{{curPageTaxData.oldDeductionAmount}}</view>
+            <view class="c cr c3">{{curPageTaxData.newDeductionAmount}}</view>
+          </view>
+          <view class="dr">
+            <view class="c c1">五险一金</view>
+            <view class="c cr c2">{{curPageTaxData.welfare}}</view>
+            <view class="c cr c3">{{curPageTaxData.welfare}}</view>
+          </view>
+          <view class="dr">
+            <view class="c c1">应纳税所得额</view>
+            <view class="c cr c2">{{curPageTaxData.oldTaxableIncome}}</view>
+            <view class="c cr c3 ">{{curPageTaxData.newTaxableIncome}}</view>
+          </view>
+          <view class="h-dashed-line"></view>
+          <view class="dr">
+            <view class="c c1">个人所得税</view>
+            <view class="c cr c2">{{curPageTaxData.taxOld}}</view>
+            <view class="c cr c3 orange">{{curPageTaxData.taxNew}}</view>
+          </view>
+
+          <view class="dr">
+            <view class="c c1">税后实发月薪</view>
+            <view class="c cr c2">{{curPageTaxData.oldActualSalary}}</view>
+            <view class="c cr c3">{{curPageTaxData.newActualSalary}}</view>
+          </view>
+          <view class="dr">
+            <view class="c c1">税后实发年薪</view>
+            <view class="c cr c2">{{curPageTaxData.oldActualAnnualIncome}}</view>
+            <view class="c cr c3">{{curPageTaxData.newActualAnnualIncome}}</view>
+          </view>
+
+        </view>
+        <view class="detail-trigger" bindtap="showDetailFn">{{showDetailBtnText}}</view>
+      </view>
+
+      <!-- 涨薪排名view -->
+      <!--<view class="rank-box" hidden="{{curPageTaxData.actualAnnualIncomeDiff == 0}}" >
+         <view class="title">
+          恭喜涨薪
+          <text>{{rankInfo.rate1}}</text>%，击败
+          <text>{{rankInfo.rate2}}</text>%的人
+        </view>
+        <view class="rank-row">
+          <text class="label">当前排名</text>
+          <view class="rank orange">
+            <text>{{rankInfo.rank}}</text>
+          </view>
+        </view>
+        <view class="rank-row">
+          <text class="label">全部参与人数</text>
+          <view class="personCount">
+            <text class="total">{{rankInfo.count}}</text>人
+          </view>
+        </view> 
+      </view>-->
+
+    </view>
+  </view>
+
+  <!-- 底部按钮操作 -->
+      <view class="footer" style="{{isShowDetail && curPageTaxData.actualAnnualIncomeDiff == 0 ? 'position:absolute;bottom:0':''}}">
+        <!-- 分享 -->
+        <!-- <view class="pubBtn shareBtn" bindtap='shareFn'>分享</view> -->
+        <button  class="pubBtn shareBtn" open-type="share">转发</button>
+        
+        <!-- 提交专项扣除信息 -->
+        <view class="pubBtn submitBtn" bindtap='submitTaxInfoFn'>提交专项扣除信息</view>
+      </view>
+
+</view>
+    
+  <!-- 分享遮罩 -->
+  <view class="popContainer" wx:if="{{sharePop}}" bindtap='hideSharPop'>
+    <view class="mask"></view>
+    <view class="share-layer">
+      <image class="share" src="../../images/salaryCalResult/share.png"></image>
+      <view class="txt">点击这里分享个税计算工具给好友</view>
+    </view>
+  </view>
+
+  <!-- 专项扣除弹框 -->
+  <view class="popContainer" hidden="{{showDialog}}" >
+    <view class="mask"></view>
+
+
+    <view class="dialog" hidden="{{showDialog}}">
+      <view class="dialogTitle">专项扣除</view>
+      <view class="pubItem">
+        <text class="pubItemLeft">子女教育</text>
+        <text class="pubItemRight">{{taxDectionDetail.spChildrenEdu}}</text>
+      </view>
+
+      <view class="pubItem">
+        <text class="pubItemLeft">继续教育</text>
+        <text class="pubItemRight">{{taxDectionDetail.spContinueEdu}}</text>
+      </view>
+
+      <view class="pubItem">
+        <text class="pubItemLeft">赡养老人</text>
+        <text class="pubItemRight">{{taxDectionDetail.spSupportParents}}</text>
+      </view>
+
+      <view class="pubItem">
+        <text class="pubItemLeft">住房支出</text>
+        <text class="pubItemRight">{{taxDectionDetail.spHousingRent?taxDectionDetail.spHousingRent:taxDectionDetail.spHousingInterest}}</text>
+      </view>
+
+      <!-- 合计 -->
+
+      <view class="dialogSum">
+        <text class="pubItemLeft">合计</text>
+        <text class="pubItemRight">{{curPageTaxData.newDeductionAmount}}</text>
+      </view>
+
+      <!-- 确定 -->
+      <view class="sureBtn" bindtap='hideDialogFn'>确定</view>
+
+    </view>
+  </view>
+</view>

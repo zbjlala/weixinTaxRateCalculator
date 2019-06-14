@@ -1,0 +1,148 @@
+.tabActive .tax-calculation{
+    color: #fff;
+}
+.tabActive .withhold{
+    color: #fff;
+}
+
+/* 遮罩 */
+/* 弹框蒙层 */
+.popContainer{
+  width:100%;
+  height:100%;
+  overflow: hidden;
+  position: fixed;
+  z-index: 10000;
+  top: 0;
+  left: 0;
+}
+.popContainer .mask{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+}
+.popContainer .dialog{
+    width:690rpx;
+    min-height:400rpx;
+    /* max-height: 1000rpx; */
+    background-color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 30rpx;
+    transform: translate3d(-50%, -50%, 0);
+    -webkit-transform: translate3d(-50%, -50%, 0)
+
+}
+
+.popContainer .title{
+    text-align: center;
+    font-size: 36rpx;
+    margin: 40rpx 0;
+    font-weight: 600;
+}
+
+.popContainer  .main{
+    flex: 1;
+    overflow: auto;
+    padding:0 40rpx;
+}
+
+.popContainer  .subtitle{
+  font-weight: 600;
+  font-size:24rpx;
+}
+.popContainer .row{
+font-size:24rpx;
+}
+.popContainer .button{
+  height:108rpx;
+  line-height: 108rpx;
+  text-align: center;
+  /* border:0; */
+  color: #93d200;
+  background-color: #fff;
+  font-size: 38rpx;
+  box-shadow: none;
+  border-radius:30rpx;
+
+}
+
+
+/* 遮罩 */
+.mask{
+  height:1334rpx;
+  width:750rpx;
+  background-color: rgba(0,0,0,0.5);
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+.dialog2{
+  border-bottom-right-radius: 30rpx;
+  border-bottom-left-radius: 30rpx;
+  border-top-right-radius: 30rpx;
+  border-top-left-radius: 30rpx;
+  width:630rpx;
+  height:730rpx;
+  background-color: rgba(255,255,255,1);
+  position: absolute;
+  top: 260rpx;
+  left: 62rpx;
+}
+
+.dialogTitle{
+  font-weight:600;
+  color:rgba(0,0,0,1);
+  font-family:PingFangSC;
+  font-size:32rpx;
+  height:120rpx;
+  line-height:120rpx;
+  text-align:center;
+  width:100%;
+  border-bottom: 2rpx solid #E5E5E5;
+}
+.pubItem{
+ width:584rpx;
+  height:100rpx;
+  margin-left:50rpx;
+  line-height:100rpx;
+  font-weight: 500;
+  color: #333;
+  font-size: 30rpx;
+}
+.pubItemRight{
+  float:right;
+}
+.dialogSum{
+  height: 82rpx;
+  line-height:82rpx;
+  width:624rpx;
+  background-color: rgba(242,253,255,1);
+  margin-left:30rpx;
+  font-weight: 500;
+  color: #333;
+  font-size: 30rpx;
+  margin-top:20rpx;
+}
+.dialogSum .pubItemLeft{
+  padding-left:20rpx;
+}
+.dialogSum .pubItemRight{
+  padding-Right:20rpx;
+}
+.sureBtn{
+height:90rpx;
+line-height:90rpx;
+width:690rpx;
+color:#93D200;
+font-size:36rpx;
+text-align:center;
+margin-top:20rpx;
+border-top:2rpx solid #E5E5E5;
+}

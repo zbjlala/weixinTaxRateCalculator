@@ -1,0 +1,293 @@
+
+<view class="pageView {{popHide?'':'scrollForbidden'}}">
+<view class="indexPage " id="taxIndex"  style="{{dataType=='0' ? 'height: 1880rpx' : 'height: 100vh'}}">
+  <image class="bg1" src="../../images/bg1.png"></image>
+
+<view class="indexContent">
+      <view class="banner">
+        <view class="tabItem taxCal {{dataType=='0'? 'tabActive' : ''}}"   dataType ="0" data-dataType="0" bindtap="swichNav">
+            <text class="tax-calculation">个税计算</text>
+            <view class="tabLine" wx:if="{{dataType=='0'}}"></view>
+        </view>
+        <view class="tabItem  salary {{dataType=='1'? 'tabActive' : ''}}"  dataType ="1" data-dataType="1" bindtap="swichNav">
+            <text class="withhold">工资条</text>
+            <view class="tabLine" wx:if="{{dataType=='1'}}"></view>
+        </view>
+      </view>
+
+     <scroll-view scroll-y class="indexItem">
+       <view  wx:if="{{ dataType == 0}}">
+           <!-- 上部分输入框 -->
+          <view class="" >
+              <view class="inputSection">
+                <text class="label">月收入</text>
+                  <input bindinput='incomeFn'  class="incomeInput" type="digit" confirm-type="done" value="" placeholder="请输入当月收入"  min="1" max="1000000" maxlength="7" />
+              </view>
+          
+                <view class="inputSection">
+                <text class="label">五险一金(选填)</text>
+                  <input  bindinput='fiveInsurancePaymentFn' class="incomeInput" type="digit" value="" placeholder="请输入每月实际缴纳金额"  min="0" max="1000000" maxlength="7" />
+                </view>
+
+                <view class="inputSection inputSectionLast">
+                  <text class="label">起征点</text>
+                    <input  class="incomeInput" type="digit" value="5000"   disabled />
+                </view>
+
+          </view>
+          <!-- 专项附加扣除 -->
+          <view class="specialTitle">
+            <view class="lineBefore"></view>
+            <text class="titleText">专项附加扣除</text>
+            <view class="lineAfter"></view>
+          </view>
+          <!-- 专项附加扣除详情 -->
+          <view class="addedDetailContent">
+              <view class="card">
+                <view class="mainTitle">
+                      <text>子女教育  1000元/人/月</text>
+                    
+                        <image  bindtap="openDialog" data-dialognum="1" class="addedIcon" src="../../images/shuoMingIcon.png"></image>
+                  
+                </view>
+                <view class="cardSection">
+                    <view class="row">
+                        <Text class="addedLabel labelFirst">夫妻双方抵扣方式</Text>
+                        <view class="options">
+                            <view class="optionBtn " >
+                                <text  bindtap='deductionMethodFn' class="btnText optionBtnFirst {{taxObj.deductionMethod == 2 ?'selected':''}}" method="2" data-method= "2">共同使用</text>
+                            </view>
+                            <view class="optionBtn optionBtnLast">
+                              <text bindtap='deductionMethodFn'class="btnText {{taxObj.deductionMethod == 1 ?'selected':''}}" method="1" data-method="1">单独使用</text>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="row">
+                        <Text class="addedLabel">子女数</Text>
+                        <view class="options">
+                              <view class="inputOption">
+                                <input bindtap="childrenCountFn" class="inputPart {{selectedChild==1?'selected':''}}"  data-selectedChild="1" value="1" disabled></input>
+                              </view>
+                              <view class="inputOption">
+                                <input bindtap="childrenCountFn"  class="inputPart {{selectedChild==2?'selected':''}}"   data-selectedChild="2" value="2" disabled></input>
+                              </view>
+                              <view class="inputOption">
+                                <input bindtap="childrenCountFn"   bindinput='childrenChangeFn' type="number" class="inputPart inputPartLast {{selectedChild==3?'selected':''}}"  data-selectedChild="3" value=""  placeholder='请输入' ></input>
+                              </view>
+                        </view>
+                    </view>
+                </view>
+              </view>
+              <view class="card cardCenter">
+                    <view class="mainTitle">
+                      <text>继续教育</text>
+                      <image bindtap="openDialog" data-dialognum="2"  class="addedIcon" src="../../images/shuoMingIcon.png"></image>
+                    </view>
+                      <view class="cardSection">
+                    <view class="row">
+                        <Text class="addedLabel">教育类型</Text>
+                        <view class="options">
+                            <view class="optionBtn" >
+                                <text  bindtap='educationTypeFn' class="btnText btnTextEdu {{taxObj.educationType == 1 ?'selected':''}}"  data-educationType= "1">学历学位400元/月</text>
+                            </view>
+                            <view class="optionBtn optionBtnLast">
+                              <text bindtap='educationTypeFn'class="btnText btnTextEdu {{taxObj.educationType == 2 ?'selected':''}}"data-educationType="2">职业资格3600元/年</text>
+                            </view>
+                        </view>
+                    </view>
+                  
+                </view>
+              </view>
+              <view class="card cardCenter">
+                    <view class="mainTitle">
+                      <text>赡养老人 2000元/人/月</text>
+                      <image bindtap="openDialog" data-dialognum="3"  class="addedIcon" src="../../images/shuoMingIcon.png"></image>
+                </view>
+                <view class="cardSection">
+                  
+                    <view class="row">
+                        <Text class="addedLabel">兄妹数</Text>
+                        <view class="options">
+                              <view class="inputOption">
+                                <input bindtap="brotherCountFn" class="inputPart {{selectedBrother==1?'selected':''}}"  data-selectedBrother="1" value="1" disabled></input>
+                              </view>
+                              <view class="inputOption">
+                                <input bindtap="brotherCountFn"  class="inputPart {{selectedBrother==2?'selected':''}}"   data-selectedBrother="2" value="2" disabled></input>
+                              </view>
+                              <view class="inputOption">
+                                <input bindtap="brotherCountFn"   bindinput='brotherChangeFn' type="number" class="inputPart inputPartLast {{selectedBrother==3?'selected':''}}"  data-selectedBrother="3" value=""  placeholder='请输入' ></input>
+                              </view>
+                        </view>
+                    </view>
+                </view>
+              </view>
+              <view class="card cardLast">
+                  <view class="mainTitle">
+                      <text>住房支出</text>
+                      <image bindtap="openDialog" data-dialognum="4"   class="addedIcon" src="../../images/shuoMingIcon.png"></image>
+                </view>
+                <view class="cardSection">
+                    <view class="row">
+                        <Text class="addedLabel labelFirst">首套房贷利息扣除</Text>
+                        <view class="options">
+                      
+                            <view class="optionBtn optionBtnLast">
+                              <text bindtap='housingFn'class="btnText {{taxObj.housing == 1 ?'selected':''}}" housing="1" data-housing="1">1000元/月</text>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="row">
+                        <Text class="addedLabel">房租扣除</Text>
+                        <view class="options">
+                              <view class="optionBtn optionBtnLast">
+                              <text bindtap='housingFn'class="btnText {{taxObj.housing == 2 ?'selected':''}}" housing="2" data-housing="2">1500元/月</text>
+                            </view>
+                            <view class="optionBtn optionBtnLast">
+                              <text bindtap='housingFn'class="btnText {{taxObj.housing == 3 ?'selected':''}}" housing="3" data-housing="3">1100元/月</text>
+                            </view>
+                            <view class="optionBtn optionBtnLast">
+                              <text bindtap='housingFn'class="btnText {{taxObj.housing == 4 ?'selected':''}}" housing="4" data-housing="4">800元/月</text>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+              </view>
+          </view>
+          <!-- 说明 -->
+          <view class="tip">说明：计算结果仅供参考</view>
+          <view class="footer">
+              <view class="submitBtn" bindtap="calcFn" >开始计算</view>
+          </view>
+
+       </view>
+    </scroll-view>
+      <scroll-view class="salaryItem">
+        <view  wx:if="{{ dataType == 1}}">
+           <view class="title-wrap">
+              <text class="title">欢迎使用，工资条查询！</text>
+            </view>
+
+        <view class="main">
+      <view class="pubInput block-4">
+  
+        <text class="label phone-number">手机号:</text>
+       <view bindtap="clearTelphoneFn" class="deleteIconDiv}" style="right:{{ getCodeText=='获取验证码'? '':'80rpx' }}">
+           <image  class="deipress" wx:if="{{telphoneFocus}}" src="../../images/salary/img_4366_0_1.png"  />
+       </view>
+        <input type="number" bindinput="phoneChangeFn"     data-key="telphone"  value="{{user.telphone}}" confirm-type="done" class="input"    placeholder="请输入手机号" placeholder-class="placeholderInput"  maxlength='11' />
+        <text bindtap='getTelphoneCodeFn' class="word {{isTelPhoneNull ? '' : 'wordValid'}}">{{getCodeText}}</text> 
+      </view>
+
+       <view class="pubInput block-5">
+          <text class="verification-code">验证码:</text>
+           <input type="number" bindinput="codeValideFn"  confirm-type="done" class="input" placeholder="请输入验证码" placeholder-class="placeholderInput" value="{{user.code}}"  maxlength='6' />
+        </view>
+    </view>
+    <view class="ft" >
+      <view class="query-wrap" wx:if="{{isValidate}}" bindtap='querySalaryFn'>
+          <text class="query">提交</text>
+       </view>
+       <view class=" query-wrap forbidden" wx:if="{{!isValidate}}">
+          <text class="query">提交</text>
+       </view>
+    </view>
+        </view>
+     </scroll-view>
+
+  
+</view>
+</view>
+
+      <!-- 遮罩 -->
+      <view class="popContainer"  hidden="{{popHide}}"  catchtouchmove="true">
+         <view class="mask"></view>
+         <view class="dialog" wx:if="{{popDialog == 1}}" >
+              <view class="content">
+                  <view class="title">子女教育</view>
+                  <view class="main">
+                    <view class="subtitle">1.扣除标准：</view>
+                    <view class="row">每个子女，每月扣除1000元。</view>
+                                  <view class="row">可由父母一方全额扣除，也可由父母分别扣除50%。</view>
+                                                <view class="row">扣除方式确定后，一个纳税年度内不能变更。</view>
+
+                                                    <view class="subtitle">2.享受条件</view>
+                    <view class="row">（1）子女年满3周岁以上至小学前，不论是否在幼儿园学习；</view>
+                                  <view class="row">（2）子女正在接受小学、初中，高中阶段教育（普通高中、中等职业教育、技工教育）；</view>
+                                                <view class="row">（3）子女正在接受高等教育（大学专科、大学本科、硕士研究生、博士研究生教育）。</view>
+                  
+                 </view>
+              </view>
+               <view class="button " bindtap="closeDialog">确定</view>
+         </view>
+
+          <view class="dialog" wx:if="{{popDialog == 2}}">
+              <view class="content">
+                  <view class="title">继续教育</view>
+                  <view class="main">
+                    <view class="subtitle">1.扣除标准：</view>
+                    <view class="row">学历（学位）继续教育：每月400元。同一个继续教育扣除期限不超48个月。</view>
+                                  <view class="row">职业资格继续教育：3600元/年。</view>
+                                    
+
+                                                    <view class="subtitle">2. 扣除条件：</view>
+                    <view class="row">（1）学历（学位）继续教育 </view>
+                                  <view class="row">接受本科及以下学历（学位）继续教育：可以由其父母扣除，也可以由本人扣除。</view>
+                                                <view class="row">接受本科以上学历（学位）继续教育：只能本人扣除。</view>
+                                                                                    <view class="row">（2）职业资格继续教育：技能人员职业资格继续教育 、专业技术人员职业资格继续教育</view>
+                  
+                 </view>
+              </view>
+               <view class="button " bindtap="closeDialog">确定</view>
+         </view>
+
+           <view class="dialog" wx:if="{{popDialog == 3}}">
+              <view class="content">
+                  <view class="title">赡养老人</view>
+                  <view class="main">
+                    <view class="subtitle">1.扣除标准：</view>
+                    <view class="row">纳税人为独生子女：每月扣除2000元</view>
+                                  <view class="row">纳税人为非独生子女，可以兄弟姐妹分摊每月2000元的扣除额度，但每人分摊的额度不能超过每月1000元。</view>
+                                    
+
+                                                    <view class="subtitle">2. 扣除条件：</view>
+                    <view class="row">被赡养父母为：年满60周岁（含）父母（生父母、继父母、养父母），以及子女均已去世的祖父母、外祖父母。 </view>
+                                  <view class="row">具体分摊方式和额度确定后，一个纳税年度不变</view>
+                 </view>
+              </view>
+               <view class="button " bindtap="closeDialog">确定</view>
+         </view>
+
+           <view class="dialog" wx:if="{{popDialog == 4}}">
+              <view class="content">
+                  <view class="title">住房支出</view>
+                  <view class="main">
+                    <view class="subtitle" style="text-align: center;margin: 10rpx 0;">首套房</view>
+                    <view class="subtitle">1.扣除标准：</view>
+                    <view class="row">每月1000元，扣除期限最长不超过240个月</view>
+                                  <view class="subtitle">2.享受条件：</view>
+                    <view class="row">本人或者配偶，单独或者共同使用商业银行或住房公积金个人住房贷款，为本人或配偶购买中国境内住房，而发生的首套住房贷款利息支出。
+      夫妻双方约定，可以选择由其中一方扣除。确定后，一个纳税年度内不变。</view>
+
+    <view class="subtitle" style="text-align: center;margin: 10rpx 0;">租房扣除</view>                              
+ <view class="subtitle"> 1.扣除标准：</view>
+                    <view class="row">（1）直辖市、省会（首府）城市、计划单列市以及国务院确定的其他城市：每月1500元； </view>
+                                  <view class="row">（2）除上述城市以外的市辖区户籍人口超过100万人的城市：每月1100元；</view>
+                                   <view class="row">（3）除上述城市以外的，市辖区户籍人口不超过100万人（含）的城市：每月800元。</view>
+
+                                    <view class="subtitle"> 2. 享受条件：</view>
+                    <view class="row">在主要工作城市租房，且同时符合以下条件： </view>
+                                  <view class="row">（1）本人及配偶在主要工作的城市没有自有住房；</view>
+                                   <view class="row">（2）已经实际发生了住房租金支出；</view>
+                                              <view class="row">（3）本人及配偶在同一纳税年度内，没有享受住房贷款利息专项附加扣除政策。也就是说，住房贷款利息与住房租金两项</view>      
+                                                                      
+                                                                                                    <view class="row">
+    扣除政策只能享受其中一项，不能同时享受。</view> 
+                 </view>
+              </view>
+               <view class="button " bindtap="closeDialog">确定</view>
+         </view>
+      </view>
+</view>
+
+
+

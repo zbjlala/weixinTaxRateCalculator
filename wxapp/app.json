@@ -1,0 +1,16 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/salaryResult/salaryResult",
+    "pages/taxTelLogin/taxTelLogin",
+    "pages/salaryCalResult/salaryCalResult",
+    "pages/errorFeedBack/errorFeedBack"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#3FC8DD",
+    "navigationBarTitleText": "服宝个税",
+    "navigationBarTextStyle":"white",
+    "backgroundColor": "#3FC8DD"
+  }
+}

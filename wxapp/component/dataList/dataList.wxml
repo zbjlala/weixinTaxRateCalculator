@@ -1,0 +1,17 @@
+<!--数据列表展示-->
+<view class="dataList" >
+    <block wx:for="{{dataList}}">
+        <view class="listItem" bindtap="">
+            <view class="itemLeft">
+                <view class="unitName">{{item.company}}</view>
+                <view class="userInfo">
+                    <view class="LinkPerson">{{item.userName}}</view>
+                    <view class="TelNumber">{{item.tel}}</view>
+                </view>
+            </view>
+            <view class="telImg" bindtap="callUser">
+                <image src="../../../image/msgRemind.png"></image>
+            </view>
+        </view>
+    </block>
+</view>

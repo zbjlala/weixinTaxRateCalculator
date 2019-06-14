@@ -1,0 +1,87 @@
+.box{
+  width:100%;
+  height:100%;
+}
+.feedBackBg{
+  width:750rpx;
+  height:584rpx;
+}
+.main {
+ margin-top:88rpx;
+margin-left:60rpx;
+max-width:618rpx;
+overflow:hidden;
+text-overflow:ellipsis;
+line-height:40rpx;
+white-space:nowrap;
+color:#666666;
+font-size:28rpx;
+font-weight:500;
+display:inline-block;
+
+}
+.submain {
+  margin-top: 40rpx;
+  margin-left: 120rpx;
+  max-width: 540rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 40rpx;
+  white-space: nowrap;
+  color: #666666;
+  font-size: 28rpx;
+  font-weight: 500;
+}
+.ft {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 186rpx;
+  width: 750rpx;
+  height: 95rpx;
+}
+.return-wrap {
+  background-color: #93d200;
+  width: 690rpx;
+  height: 94rpx;
+  box-shadow: 0 6px 28px 0 rgba(126,175,14,0.44);
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  border-radius: 44rpx;
+}
+.return {
+  max-width: 678rpx;
+  overflow: hidden;
+  text-align: center;
+  text-overflow: ellipsis;
+  line-height: 50rpx;
+  white-space: nowrap;
+  color: #ffffff;
+  font-size: 36rpx;
+  font-weight: 500;
+}
+
+.successResult{
+  padding:0 80rpx;
+}
+.resultRow{
+  height:60rpx;
+  line-height: 60rpx;
+  font-size:28rpx;
+  color:#666666;
+  display:flex;
+  align-items: center;
+}
+.resultRow .dataTitle{
+
+}
+.resultRow .rowVal{
+  display:inline-block;
+  width:400rpx;
+  padding-left:20rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

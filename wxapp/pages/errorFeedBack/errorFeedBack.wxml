@@ -1,0 +1,35 @@
+<view class="box">
+ <image class="feedBackBg"   hidden="{{success == 'true'}}"  src="../../images/errorFeedBack/feedBackBg.png" />
+
+<image class="feedBackBg"  hidden="{{success == 'false'}}" src="../../images/errorFeedBack/successResult.png"></image>
+
+<!-- 反馈结果失败 -->
+ <view class="failResult"  hidden="{{success == 'true'}}">
+    <text class="main">个税红利等着你，赶紧让会计来开通工资服务吧~~</text>
+    <view class="submain" >专属客服电话：
+    <text bindtap="callPhoneFn" style="color:#3FC8DD">400-6600-566</text>
+    转3转2
+    </view>
+ </view>
+
+<!-- 反馈结果成功 -->
+ <view class="successResult" hidden="{{success == 'false'}}">
+    <!--<view class="resultRow" >
+      <text class="dataTitle">企业名称:</text>  <text class="rowVal">{{dataInfo.orgName}}</text>
+    </view>
+     <view class="resultRow" >
+      <text class="dataTitle"> 员工姓名:</text>
+     <text class="rowVal">{{dataInfo.name}}</text>
+    </view>
+     <view class="resultRow" >
+    <text class="dataTitle">  身份证号:</text>
+     <text class="rowVal">{{dataInfo. identificationNo}}</text>
+    </view>-->
+ </view>
+
+  <view class="ft">
+    <view class="return-wrap" bindtap='gobackFn'>
+      <text class="return">返回</text>
+    </view>
+  </view>
+</view>

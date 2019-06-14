@@ -1,0 +1,194 @@
+<view class="salaryPage">
+  <image class="bannerBg" src="../../images/bg1.png"></image>
+
+<view class="contentSection">
+    <!-- <view  class="searchWrap">
+      <view class="searchContent">
+          <text class="searchTitle">查询月份:</text>
+          <view class="dateView">
+           <picker
+                fields="month"
+                mode="date"
+                value="{{scrollDate}}"
+                start="2018-01"
+                end="{{maxEndDate}}"
+                bindchange="bindDateChange">
+              <view class="picker">
+              {{date}}
+              </view>
+
+               <icon  class="searchIcon" type="search" size="16" />
+            </picker>         
+          </view>
+         
+      </view>
+    </view> -->
+
+    <view class="employeeInfo">
+      <view class='employeeName'>
+      姓名: <text>{{salaryDetail.name}}</text>
+      </view>
+      <view class="departmentName">
+      部门:<text>{{salaryDetail.dept}}</text>
+      </view>
+    </view>
+
+<view class="view-4">
+        <view class="block-7">
+          <view class="block-6">
+            <image src="../../images/salaryResult/img_4436_0_2.png" class="floor-bg" />
+            <view class="bg-wrap">
+              <image src="../../images/salaryResult/img_4436_0_3.png" class="bg" />
+              <!-- 查询到内容--start -->
+            <view class="salaryInfo" hidden="{{salaryNull}}" >
+              <view class="title-wrap">
+                <text class="title-2">{{salaryDetail.year}}年{{salaryDetail.month}}月工资条</text>
+              </view>
+              <view class="line-wrap">
+                <image src="../../images/salaryResult/img_4436_0_4.png" class="line" />
+              </view>
+              <view class="outer">
+                <text class="title-3">税前收入</text>
+                <text class="count">{{salaryDetail.pretaxIncome}}</text>
+              </view>
+              <view class="line-wrap-2">
+                <image src="../../images/salaryResult/img_4436_0_5.png" class="line-2" />
+              </view>
+              <view class="outer-2">
+                <text class="old-age-insurance">养老保险</text>
+                <text class="num-3">{{salaryDetail.pensionInsurance}}</text>
+              </view>
+              <view class="outer-3">
+                <view class="wrap">
+                  <text class="title-4">医疗保险</text>
+                  <text class="title-5">失业保险</text>
+                </view>
+                <view class="wrap-2">
+                  <text class="count-2">{{salaryDetail.medicalInsurance}}</text>
+                  <text class="num-4">{{salaryDetail.unemploymentInsurance}}</text>
+                </view>
+              </view>
+              <view class="outer-4">
+                <view class="wrap-3">
+                  <text class="total-prev">住房公积金</text>
+                  <text class="total">合计</text>
+                </view>
+                <view class="wrap-4">
+                  <text class="count-3">{{salaryDetail.housingFunds}}</text>
+                  <text class="num-5">{{salaryDetail.totalAmount}}</text>
+                </view>
+              </view>
+              <view class="line-wrap-3">
+                <image src="../../images/salaryResult/img_4436_0_6.png" class="line-3" />
+              </view>
+              <view class="outer-5">
+                <view class="wrap-5">
+                  <text class="title-6">专项附加扣除</text>
+                  <image bindtap='showSpecialAddedDialog' src="../../images/salaryResult/img_4436_0_9.png" class="kedanjia" />
+                </view>
+                <text class="count-4">{{salaryDetail.spSum}}</text>
+              </view>
+              <view class="line-wrap-4">
+                <image src="../../images/salaryResult/img_4436_0_7.png" class="line-4" />
+              </view>
+              <view class="outer-6">
+                <view class="wrap-6">
+                  <text class="title-7">本月应纳税所得额</text>
+                  <text class="title-8">本月个税</text>
+                </view>
+                <view class="wrap-7">
+                  <text class="count-5">{{salaryDetail.curMonthTaxIncome}}</text>
+                  <text class="num-6">{{salaryDetail.personalTax}}</text>
+                </view>
+              </view>
+              <view class="line-wrap-5">
+                <image src="../../images/salaryResult/img_4436_0_8.png" class="line-5" />
+              </view>
+              <view class="outer-7">
+                <text class="title-9">本月实发金额</text>
+                <text class="num-7">{{salaryDetail.actualIncome}}</text>
+              </view>
+            </view>
+            <!-- 查询到内容--end -->
+
+            <!-- 查询内容为空--start -->
+            <view class="salaryNull" hidden="{{!salaryNull}}">
+                <image class="salaryNullImg" src="../../images/salaryResult/salaryNull.png"></image>
+                <view class="tipMsg">该月还未生成工资条哦~</view>
+            </view>
+            <!-- 查询内容为空--end -->
+
+            </view>
+          </view>
+          <view class="color-div-2"></view>
+        </view>
+      </view>
+
+
+   </view>
+
+
+
+
+
+ <!-- 遮罩 -->
+  <view class="popContainer" hidden="{{showDialog}}">
+<view class="mask" hidden="{{showDialog}}"></view>
+<!-- 专项附加扣除弹窗 -->
+<view class="dialog" hidden="{{showDialog}}">
+  <view class="dialogTitle">专项扣除</view>
+    <view class="pubItem">
+      <text class="pubItemLeft">子女教育</text>
+      <text class="pubItemRight">{{salaryDetail.spChildrenEdu}}</text>
+    </view>
+
+     <view class="pubItem">
+      <text class="pubItemLeft">继续教育</text>
+      <text class="pubItemRight">{{salaryDetail.spContinueEdu}}</text>
+    </view>
+
+     <view class="pubItem">
+      <text class="pubItemLeft">赡养老人</text>
+      <text class="pubItemRight">{{salaryDetail.spSupportParents}}</text>
+    </view>
+
+     <view class="pubItem">
+      <text class="pubItemLeft">住房支出</text>
+      <text class="pubItemRight">{{salaryDetail.spHousingRent}}</text>
+    </view>
+
+    <!-- 合计 -->
+
+  <view class="dialogSum">
+      <text class="pubItemLeft">合计</text>
+      <text class="pubItemRight">{{salaryDetail.spSum}}</text>
+  </view>
+
+  <!-- 确定 -->
+  <view class="sureBtn" bindtap='hideDialogFn'>确定</view>
+
+
+
+</view>
+</view>
+</view>
+
+
+
+  
+
+<!-- <view class="section">
+
+  <picker
+   fields="month"
+    mode="date"
+    value="{{date}}"
+    start="2015-09"
+    end="2017-09"
+    bindchange="bindDateChange"
+  >
+    <view class="picker">
+      当前选择: {{date}}
+    </view>
+  </picker>
+</view> -->

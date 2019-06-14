@@ -1,0 +1,32 @@
+<view class="block-6">
+  <view class="box">
+    <image src="../../images/bg1.png" class="layer" />
+
+    <view class="main">
+      <view class="pubInput block-4">
+  
+        <text class="label phone-number">手机号:</text>
+       <view bindtap="clearTelphoneFn" class="deleteIconDiv}" style="right:{{ getCodeText=='获取验证码'? '':'80rpx' }}">
+           <image  class="deipress" wx:if="{{telphoneFocus}}" src="../../images/salary/img_4366_0_1.png"  />
+       </view>
+        <input type="number" bindinput="phoneChangeFn"    data-key="telphone"  value="{{user.telphone}}" confirm-type="done" class="input"    placeholder="请输入手机号" placeholder-class="placeholderInput"  maxlength='11' />
+        <text bindtap='getTelphoneCodeFn' class="word {{isTelPhoneNull ? '' : 'wordValid'}}">{{getCodeText}}</text> 
+      </view>
+
+       <view class="pubInput block-5">
+          <text class="verification-code">验证码:</text>
+           <input type="number" bindinput="codeValideFn"  confirm-type="done" class="input" placeholder="请输入验证码" placeholder-class="placeholderInput"  maxlength='6' />
+        </view>
+    </view>
+    <view class="ft" >
+      <view class="query-wrap" wx:if="{{isValidate}}" bindtap='querySalaryFn'>
+          <text class="query">提交</text>
+       </view>
+       <view class=" query-wrap forbidden" wx:if="{{!isValidate}}">
+          <text class="query">提交</text>
+       </view>
+    </view>
+  </view>
+
+
+</view>
